@@ -1,5 +1,7 @@
-package factorialCalculator;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 public class Main {
 	public static void main(String args[]) {
@@ -18,9 +20,11 @@ public class Main {
 		System.out.println(intList.size());
 		
 		*/
-		
+
 		boolean pass=false;
 		int input=0;
+		
+		ArrayList<Integer> outputArrList = new ArrayList<Integer>();
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -39,24 +43,73 @@ public class Main {
 				pass=false;
 			}
 		}
-		for(int i: factorial(input)) {
-			System.out.print(i);
+		outputArrList = reverseArrayList(factorial(input));
+			
+		try {
+			File outputFile = new File("output.txt");
+			FileWriter w = new FileWriter(outputFile);
+			Integer cast;
+			for(int i: outputArrList) {
+				cast = i;
+				w.write(cast.toString());
+
+			}
+			w.close();
+			System.out.println("Total Size: "+outputArrList.size());
+			
+		}catch(Exception e) {
+			System.out.println("error");
+			System.out.println(e.getMessage());
 		}
 		
+	}
+	/*
+	public static ArrayList<String> convertToDecimal(ArrayList<Integer> input){
 		
 	}
+	*/
+	public static ArrayList<Integer> reverseArrayList(ArrayList<Integer> input){
+		 ArrayList<Integer> out = new ArrayList<Integer>();
+	        for (int i = input.size() - 1; i >= 0; i--) {
+
+	            out.add(input.get(i));
+	        }
+
+	        return out;
+	}
 	public static ArrayList<Integer> factorial(int in){
-		ArrayList<ArrayList<Integer>> productList=new ArrayList<ArrayList<Integer>>();
+
 		ArrayList<Integer> result=new ArrayList<Integer>();
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 		temp.add(1);
-		productList.add(temp);
-		for(int i= 0;i<in;i++) {
-			productList.add(multiplyBinary(productList.get(i),convertToBinary(i+1)));
+		result.add(1);
+		int progress=0;
+		double percent;
+		if(in>10) {
+			
+		
+			for(int i= 2;i<=in;i++) {
+				result=multiplyBinary(result,convertToBinary(i));
+				percent=(double)i/in*100;
+			//System.out.println(percent+" "+progress);
+				if(percent>progress*10){
+					
+					System.out.println(progress*10+"% ");
+					progress++;
+				}
+			}
+		}else {
+			for(int i= 2;i<=in;i++) {
+				result=multiplyBinary(result,convertToBinary(i));
+				percent=(double)i/in*100;
+				//System.out.println(percent+" "+progress);
+				
+			}
 		}
-		for(int j = 0;j<productList.size();j++) {
+		/*for(int j = 0;j<productList.size();j++) {
 			result=addBinary(result,productList.get(j));
 		}
+		*/
 		return result;
 	}
 	public static ArrayList<Integer> convertToBinary(int in) {
@@ -98,11 +151,9 @@ public class Main {
 			singleProduct=new ArrayList<Integer>();
 
 			for(int k= 0;k<baseCount;k++) {
-				System.out.println("added "+k+" zeros");
+
 				singleProduct.add(0,0);
 			}
-			System.out.println();
-			
 			for(int i= 0;i<largerArraySize;i++) {
 				
 				
@@ -125,20 +176,12 @@ public class Main {
 				}
 
 			}
-			System.out.println("base "+baseCount);
-			
+
 			subProducts.add(singleProduct);
 			baseCount++;
 			
 		//
-			for(ArrayList<Integer> it: subProducts) {
-				for( int sdf: it) {
-					System.out.print(+sdf);
-					
-				}
-				System.out.println("Subproduct");
-				
-			}
+		
 		}
 		//
 		
@@ -148,10 +191,11 @@ public class Main {
 			
 			
 		}
+		for(int sd: product) {
+			//System.out.print(sd);
+		}
+		//System.out.println("done");
 		
-			
-		
-		System.out.println();
 		return product;
 	}
 	//numbers should be inputted backwards
