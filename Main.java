@@ -111,7 +111,7 @@ public class Main {
 		}
 
 		*/
-		System.out.println("100%);
+		System.out.println("100%");
 		return result;
 	}
 	public static ArrayList<Integer> convertToBinary(int in) {
