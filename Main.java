@@ -55,7 +55,7 @@ public class Main {
 
 			}
 			w.close();
-			System.out.println("Total Size: "+outputArrList.size());
+			System.out.println("Total Size: "+outputArrList.size()+" Binary Digits");
 			
 		}catch(Exception e) {
 			System.out.println("error");
@@ -109,7 +109,9 @@ public class Main {
 		/*for(int j = 0;j<productList.size();j++) {
 			result=addBinary(result,productList.get(j));
 		}
+
 		*/
+		System.out.println("100%);
 		return result;
 	}
 	public static ArrayList<Integer> convertToBinary(int in) {
